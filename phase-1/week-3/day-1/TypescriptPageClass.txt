@@ -1,0 +1,44 @@
+import { Locator, Page } from '@playwright/test';
+
+export class MainMenuPage {
+  readonly page: Page;
+  readonly createOrderLink: Locator;
+  readonly writeEmailLink: Locator;
+  readonly logCallLink: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.createOrderLink = page.locator('a#ext-gen606');
+    this.writeEmailLink = page.locator('a#ext-gen624');
+    this.logCallLink = page.locator('a#ext-gen650');
+  }
+
+  async clickCreateOrder(): Promise<void> {
+    await this.createOrderLink.click();
+  }
+
+  async clickWriteEmail(): Promise<void> {
+    await this.writeEmailLink.click();
+  }
+
+  async clickLogCall(): Promise<void> {
+    await this.logCallLink.click();
+  }
+
+  async clickLinkByText(linkText: string): Promise<void> {
+    const link = this.page.locator(`a:has-text("${linkText}")`);
+    await link.click();
+  }
+
+  async isCreateOrderVisible(): Promise<boolean> {
+    return await this.createOrderLink.isVisible();
+  }
+
+  async isWriteEmailVisible(): Promise<boolean> {
+    return await this.writeEmailLink.isVisible();
+  }
+
+  async isLogCallVisible(): Promise<boolean> {
+    return await this.logCallLink.isVisible();
+  }
+}
